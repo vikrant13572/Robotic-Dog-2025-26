@@ -1,177 +1,82 @@
-# Robotic-Dog-2025-26
+# Quadruped Robot Movement Control
 
-This repository contains code and documentation for a four-legged robotic dog, utilizing inverse kinematics to control leg movements. The project includes Python scripts for 3D simulation and Arduino code for servo motor control, enabling precise positioning of each leg's end effector.
+A collection of Arduino programs for controlling the movement of a quadruped robot using servo motors. This repository includes different movement patterns, servo testing programs, and a Python simulation for validating leg motions.
 
-Table of Contents
-Project Overview
-Repository Structure
-Hardware Requirements
-Software Requirements
-Installation and Setup
-Usage
-Coordinate System and Offsets
-Kinematics and Transformation Matrices
-Angle Ranges
-Photo Gallery
-Project Overview
-The robotic dog features four legs (front right, front left, back right, back left), each with three degrees of freedom driven by servo motors. Inverse kinematics calculates joint angles (T1, T2, T3) to position each leg at specified (x, y, z) coordinates. Python scripts provide 3D visualization, while Arduino code controls the physical robot. The robot's front aligns with the XY plane, with fixed offsets for each leg.
+## Features
 
-Repository Structure
-Arduino Files/
+- Individual servo angle testing
+- Control of all four legs simultaneously
+- Straight walking implementation
+- Multiple movement/gait patterns
+- Python simulation for movement visualization and testing
 
-Left-Back-Leg-Arduino.ino: Firmware for controlling the left back leg servos.
-Left-Front-Leg-Arduino.ino: Firmware for controlling the left front leg servos.
-Right-Back-Leg-Arduino.ino: Firmware for controlling the right back leg servos.
-Right-Front-Leg-Arduino.ino: Firmware for controlling the right front leg servos.
-Python File/
+## Repository Structure
 
-kinematics/
-InverseKinematics.py: Script to compute joint angles for left and right legs.
-simulation/
-4 Legs Simulation.py: 3D simulation of all four legs with interactive controls.
-Left Leg Simulation.py: 3D simulation of a single left leg.
-Right Leg Simulation.py: 3D simulation of a single right leg.
-Solidworks File/
+| File | Description |
+|------|-------------|
+| `90_degtest.ino` | Tests servo movement at 90° position for calibration. |
+| `all_legs_pp.ino` | Controls all four legs together for coordinated motion. |
+| `movement1.ino` | Implements the first walking/movement sequence. |
+| `movement2.ino` | Implements an alternative walking/movement sequence. |
+| `straight_final.ino` | Final implementation for straight-line walking. |
+| `ppfinalsim_new.py` | Python simulation for testing and visualizing robot movement logic. |
 
-(Placeholder for SolidWorks design files, e.g., .sldprt or .sldasm files)
-docs/
+## Hardware Requirements
 
-ReadMe.md: Main project overview and instructions.
-arduino.md: Detailed documentation for Arduino firmware.
-components.md: Information on design specifications and hardware components.
-python.md: Detailed documentation for Python simulation and kinematics scripts.
-Hardware Requirements
-Arduino-compatible microcontroller (e.g., Arduino Uno)
-12 servo motors (3 per leg)
-Power supply for servos (5V, sufficient current)
-Robotic dog chassis (leg segments: a1=4.5 cm, a2=6 cm, a3=5.4 cm)
-USB cable
-Jumper wires and prototyping board
-Software Requirements
-Python 3.x with:
-numpy
-matplotlib
-Arduino IDE
-Serial monitor (e.g., Arduino IDE's Serial Monitor)
-Installation and Setup
-Python Setup:
+- ESP32 / ESP8266
+- Servo Motors (SG90/MG90S or equivalent)
+- Quadruped robot chassis
+- External power supply for servos
+- Jumper wires
 
-Install Python 3.x.
+## Software Requirements
 
-Install libraries:
+- Arduino IDE
+- Python 3.x
+- Required Python libraries (if any)
 
-pip install numpy matplotlib
-Arduino Setup:
+## Getting Started
 
-Install Arduino IDE from arduino.cc.
-Connect servos to Arduino pins (default: 9, 10, 11).
-Upload the appropriate .ino file for each leg.
-Simulation:
+1. Clone the repository
 
-Run Python scripts for visualization.
-Adjust joint angles using sliders.
-Physical Robot:
+```bash
+git clone https://github.com/<your-username>/<repository-name>.git
+```
 
-Power servos and connect to Arduino.
-Use Serial Monitor (9600 baud) to input coordinates.
-Usage
-Simulation
-Run 4LegsForwardSimulation.py for all legs:
+2. Open the required `.ino` file in Arduino IDE.
 
-python 4LegsForwardSimulation.py
-Adjust T1, T2, T3 via sliders.
-Use XY, XZ, YZ buttons to change views.
-View end effector coordinates on the plot.
-Run LeftLegSimulation.py or RightLegSimulation.py for single-leg simulation:
+3. Select the correct:
+   - Board
+   - COM Port
 
-python LeftLegSimulation.py
-python RightLegSimulation.py
-Inverse Kinematics
-Run InverseKinematicsBothLeg.py:
+4. Upload the program to the ESP32/ESP8266.
 
-python InverseKinematicsBothLeg.py
-Input leg (0 for right, 1 for left) and (x, y, z).
-Outputs T1, T2, T3 in degrees.
-Arduino Control
-Upload .ino file for each leg.
-Open Serial Monitor (9600 baud).
-Enter x, y, z coordinates to move servos.
-Coordinate System and Offsets
-The coordinate system is centered at the robot's body, with the front in the XY plane. Offsets (in cm):
+5. Power the robot and observe the movement.
 
-Right Front: x = x_centre - 1, y = y_centre, z = z_centre - 8.5
-Right Back: x = x_centre - 1, y = y_centre, z = z_centre + 8.5
-Left Front: x = x_centre + 1, y = y_centre, z = z_centre - 8.5
-Left Back: x = x_centre + 1, y = y_centre, z = z_centre + 8.5
-Kinematics and Transformation Matrices
-Leg segments: a1 = 4.5 cm, a2 = 6 cm, a3 = 5.4 cm.
+## Project Workflow
 
-Rotation Matrices
-R0_1 = np.array([[-np.sin(T1), 0, np.cos(T1)],
-                 [np.cos(T1),  0, np.sin(T1)],
-                 [0,           1,          0]])
+1. Calibrate servos using `90_degtest.ino`
+2. Test coordinated leg movement using `all_legs_pp.ino`
+3. Experiment with different gait algorithms:
+   - `movement1.ino`
+   - `movement2.ino`
+4. Run the optimized walking program:
+   - `straight_final.ino`
+5. Use `ppfinalsim_new.py` to simulate and verify movements before deployment.
 
-R1_2 = np.array([[np.cos(T2), -np.sin(T2), 0],
-                 [np.sin(T2),  np.cos(T2), 0],
-                 [0,           0,          1]])
+## Future Improvements
 
-R2_3 = np.array([[1, 0, 0],
-                 [0, 0, 1],
-                 [0, -1, 0]])
-Displacement Vectors
-D0_1 = np.array([[a1 * np.cos(T1)], [a1 * np.sin(T1)], [0]])
-D1_2 = np.array([[a2 * np.cos(T2)], [a2 * np.sin(T2)], [0]])
-D2_3 = np.array([[a3 * np.cos(T3)], [a3 * np.sin(T3)], [0]])
-Homogeneous Transformation Matrices
-H0_1 = np.concatenate((R0_1, D0_1), axis=1)
-H0_1 = np.concatenate((H0_1, [[0, 0, 0, 1]]), axis=0)
+- Obstacle avoidance
+- Bluetooth/Wi-Fi control
+- Camera-based navigation
+- Face tracking
+- IMU-based balancing
+- Multiple gait algorithms (crawl, trot, bound)
 
-H1_2 = np.concatenate((R1_2, D1_2), axis=1)
-H1_2 = np.concatenate((H1_2, [[0, 0, 0, 1]]), axis=0)
+## Author
 
-H2_3 = np.concatenate((R2_3, D2_3), axis=1)
-H2_3 = np.concatenate((H2_3, [[0, 0, 0, 1]]), axis=0)
+**Vikrant Kumar Singh**
 
-H0_2 = np.dot(H0_1, H1_2)
-H0_3 = np.dot(H0_2, H2_3)
-Angle Ranges
-Right Leg: T1: -90° to +90°; T2, T3: 0° to 180°
-Left Leg: T1: 90° to 270°; T2, T3: 0° to 180°
-Photo Gallery
-Manipulator Diagram: Manipulator diagram (2)
+---
 
-Robotic Dog(Model):
-
-0 (1)
-
-Robotic Dog(Actual Bot): WhatsApp Image 2025-04-16 at 18 10 43_51172742
-
-About
-No description, website, or topics provided.
-Resources
- Readme
- Activity
-Stars
- 0 stars
-Watchers
- 1 watching
-Forks
- 1 fork
-Report repository
-Releases
-No releases published
-Packages
-No packages published
-Contributors
-2
-@krishnaagrawal74
-krishnaagrawal74 Krishna Raj Agrawal
-@Dhruv10143
-Dhruv10143
-Languages
-Python
-59.8%
- 
-C++
-40.2%
-Footer
+Feel free to contribute by suggesting improvements or optimizing the gait algorithms.
