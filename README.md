@@ -23,7 +23,7 @@ A collection of Arduino programs for controlling the movement of a quadruped rob
 
 ## Hardware Requirements
 
-- ESP32 / ESP8266
+- ESP32 
 - Servo Motors (SG90/MG90S or equivalent)
 - Quadruped robot chassis
 - External power supply for servos
@@ -32,8 +32,10 @@ A collection of Arduino programs for controlling the movement of a quadruped rob
 ## Software Requirements
 
 - Arduino IDE
-- Python 3.x
-- Required Python libraries (if any)
+- Python 
+- Matplotlib
+- Numpy
+- Matlab
 
 ## Getting Started
 
