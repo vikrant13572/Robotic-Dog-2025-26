@@ -53,7 +53,7 @@ A collection of Arduino programs for controlling the movement of a quadruped rob
 
 ## Project Workflow
 
-1. Calibrate servos using `90_degtest.ino`
+1. Set your servos to a specific angle by `90_degtest.ino`
 2. Test coordinated leg movement using `all_legs_pp.ino`
 3. Experiment with different gait algorithms:
    - `movement1.ino`
