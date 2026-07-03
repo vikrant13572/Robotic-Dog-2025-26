@@ -23,11 +23,12 @@ A collection of Arduino programs for controlling the movement of a quadruped rob
 
 ## Hardware Requirements
 
-- ESP32 
-- Servo Motors (SG90/MG90S or equivalent)
-- Quadruped robot chassis
-- External power supply for servos
+- Arduino UNO 
+- Servo Motors MG996R
+- PLA filament for printing
+- SMPS with high current and volatage output
 - Jumper wires
+- 
 
 ## Software Requirements
 
@@ -39,11 +40,6 @@ A collection of Arduino programs for controlling the movement of a quadruped rob
 
 ## Getting Started
 
-1. Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/<repository-name>.git
-```
 
 2. Open the required `.ino` file in Arduino IDE.
 
@@ -51,7 +47,7 @@ git clone https://github.com/<your-username>/<repository-name>.git
    - Board
    - COM Port
 
-4. Upload the program to the ESP32/ESP8266.
+4. Upload the program to Arduino UNO.
 
 5. Power the robot and observe the movement.
 
